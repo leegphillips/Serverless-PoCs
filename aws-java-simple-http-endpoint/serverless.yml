@@ -8,5 +8,9 @@ package:
   artifact: target/aws-java-simple-http-endpoint-dev.jar
 
 functions:
-  poc:
+  currentTime:
     handler: com.github.leegphillips.ServerlessPoCs.awsJavaSimpleHttpEndpoint.Handler
+    events:
+      - http:
+          path: ping
+          method: get

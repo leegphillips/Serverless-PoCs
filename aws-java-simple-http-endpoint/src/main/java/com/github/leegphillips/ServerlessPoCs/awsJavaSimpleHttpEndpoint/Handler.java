@@ -1,6 +1,7 @@
 package com.github.leegphillips.ServerlessPoCs.awsJavaSimpleHttpEndpoint;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.serverless.ApiGatewayResponse;
@@ -17,11 +18,14 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		LOG.info("received: " + input);
-		Response responseBody = new Response("Go Serverless v1.x! Your function executed successfully!", input);
+		Response responseBody = new Response(Long.toString(System.currentTimeMillis()));
+		Map<String, String> headers = new HashMap<>();
+		headers.put("X-Powered-By", "AWS Lambda & Serverless");
+		headers.put("Content-Type", "application/json");
 		return ApiGatewayResponse.builder()
 				.setStatusCode(200)
 				.setObjectBody(responseBody)
-				.setHeaders(Collections.singletonMap("X-Powered-By", "AWS Lambda & serverless"))
+				.setHeaders(headers)
 				.build();
 	}
 }
