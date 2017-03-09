@@ -3,14 +3,24 @@ service: aws-java-simple-sns
 provider:
   name: aws
   runtime: java8
+  iamRoleStatements:
+    - Effect: "Allow"
+      Resource: "*"
+      Action:
+        - "sns:*"
 
 package:
   artifact: target/aws-java-simple-sns-dev.jar
 
 functions:
-  currentTime:
-    handler: com.github.leegphillips.ServerlessPoCs.awsJavaSimpleSns.Handler
+  receiver:
+    handler: com.github.leegphillips.ServerlessPoCs.awsJavaSimpleSns.Receiver
     events:
       - http:
-          path: ping
-          method: get
+          path: input
+          method: post
+          
+  listener:
+    handler: com.github.leegphillips.ServerlessPoCs.awsJavaSimpleSns.Listener
+    events:
+      - sns: message
