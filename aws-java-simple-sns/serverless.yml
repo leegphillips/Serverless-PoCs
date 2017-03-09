@@ -1,0 +1,16 @@
+service: aws-java-simple-sns
+
+provider:
+  name: aws
+  runtime: java8
+
+package:
+  artifact: target/aws-java-simple-sns-dev.jar
+
+functions:
+  currentTime:
+    handler: com.github.leegphillips.ServerlessPoCs.awsJavaSimpleSns.Handler
+    events:
+      - http:
+          path: ping
+          method: get
