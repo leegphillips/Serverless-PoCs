@@ -1,6 +1,5 @@
 package com.github.leegphillips.ServerlessPoCs.awsJavaSimpleSns;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.amazonaws.services.sns.AmazonSNS;
@@ -12,9 +11,9 @@ import org.apache.log4j.Logger;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-public class Receiver implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class Publisher implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
-	private static final Logger LOG = Logger.getLogger(Receiver.class);
+	private static final Logger LOG = Logger.getLogger(Publisher.class);
 
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
@@ -23,12 +22,11 @@ public class Receiver implements RequestHandler<Map<String, Object>, ApiGatewayR
 		String timestamp = Long.toString(System.currentTimeMillis());
 
 		AmazonSNS sns = AmazonSNSClientBuilder.defaultClient();
-		sns.publish("arn:aws:sns:us-east-1:xxxx:message", timestamp);
+		sns.publish("arn:aws:sns:us-east-1:" + new ClientId() + ":message", timestamp);
+		sns.publish("arn:aws:sns:us-east-1:" + new ClientId() + ":message", timestamp);
 
-		Response responseBody = new Response(timestamp);
 		return ApiGatewayResponse.builder()
-				.setStatusCode(200)
-				.setObjectBody(responseBody)
+				.setStatusCode(204)
 				.build();
 	}
 }

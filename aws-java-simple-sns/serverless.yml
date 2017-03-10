@@ -13,8 +13,8 @@ package:
   artifact: target/aws-java-simple-sns-dev.jar
 
 functions:
-  receiver:
-    handler: com.github.leegphillips.ServerlessPoCs.awsJavaSimpleSns.Receiver
+  publisher:
+    handler: com.github.leegphillips.ServerlessPoCs.awsJavaSimpleSns.Publisher
     events:
       - http:
           path: input
