@@ -1,0 +1,20 @@
+service: aws-java-http-redirect
+
+provider:
+  name: aws
+  runtime: java8
+
+package:
+  artifact: target/aws-java-http-redirect-dev.jar
+
+functions:
+  redirect:
+    handler: com.github.leegphillips.ServerlessPoCs.awsJavaHttpRedirect.Handler
+    events:
+      - http:
+          path: redirect
+          method: get
+          response:
+            statusCodes:
+              302:
+                pattern: ''
