@@ -1,0 +1,16 @@
+service: aws-java-http-post-to-s3
+
+provider:
+  name: aws
+  runtime: java8
+
+package:
+  artifact: target/aws-java-http-post-to-s3-dev.jar
+
+functions:
+  receiver:
+    handler: com.github.leegphillips.ServerlessPoCs.awsJavaHttpPostToS3.Handler
+    events:
+      - http:
+          path: receiver
+          method: post
