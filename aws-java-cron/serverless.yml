@@ -1,0 +1,14 @@
+service: aws-java-cron
+
+provider:
+  name: aws
+  runtime: java8
+
+package:
+  artifact: target/aws-java-cron-dev.jar
+
+functions:
+  cron:
+    handler: com.github.leegphillips.ServerlessPoCs.awsJavaCron.Handler
+    events:
+      - schedule: cron(0/1 * * * ? *)
