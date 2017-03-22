@@ -1,0 +1,16 @@
+service: aws-java-s3-to-s3-transform-image
+
+provider:
+  name: aws
+  runtime: java8
+
+package:
+  artifact: target/aws-java-s3-to-s3-transform-image-dev.jar
+
+functions:
+  currentTime:
+    handler: com.github.leegphillips.ServerlessPoCs.awsJavaS3ToS3TransformImage.Handler
+    events:
+      - http:
+          path: ping
+          method: get
